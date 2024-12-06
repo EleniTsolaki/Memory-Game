@@ -72,6 +72,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
             alert("You found a match");
             cards[oneImg].setAttribute('src', '/Image/white.png');
             cards[twoImg].setAttribute('src', '/Image/white.png');
+            cards[oneImg].removeEventListener('click', flipCard);  // Disable further clicks on matched cards
+            cards[twoImg].removeEventListener('click', flipCard);
             cardWon.push(cardChoosen);
         }
         else{
@@ -93,6 +95,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     // flip card
     function flipCard(){
         var cardId = this.getAttribute('data-id');
+        if (this.getAttribute('src') !== '/Image/blank.png') return;  // Check if the card is already matched (prevents clicking on already matched cards)
         cardChoosen.push(cardArray[cardId].name);
         cardChoosenId.push(cardId);
         this.setAttribute('src',cardArray[cardId].img);
